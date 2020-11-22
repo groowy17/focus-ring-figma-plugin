@@ -1,0 +1,36 @@
+<h2>Rectangle Creator</h2>
+<p>Count: <input id="count" value="5"></p>
+<button id="create">Create</button>
+<button id="cancel">Cancel</button>
+<label id="message"></label>
+<script>
+  let selected = false;
+
+  window.onmessage = (msg) => {
+    const { type } = msg.data.pluginMessage;
+
+    if (type === "ITEM_SELECTED") {
+      selected = true;
+    }
+
+    if (type == "INCORRECT_TYPE_NODE") {
+      document.getElementById('message').innerHTML = 'Oh no! Its not a rectangle';
+    }
+  }
+
+document.getElementById('create').onclick = () => {
+  // const textbox = document.getElementById('count');
+  // const count = parseInt(textbox.value, 10);
+  // parent.postMessage({ pluginMessage: { type: 'create-rectangles', count } }, '*')
+  if (selected) {
+    parent.postMessage({ pluginMessage: { type: 'SET_FOCUS_RING' } }, '*');
+  } else {
+    console.log('NONa');
+  }
+}
+
+document.getElementById('cancel').onclick = () => {
+  parent.postMessage({ pluginMessage: { type: 'cancel' } }, '*')
+}
+
+</script>
